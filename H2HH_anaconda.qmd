@@ -7,6 +7,7 @@ format:
     transition: slide
     theme: simple
     auto-stretch: false
+    self-contained: true
 editor_options: 
   markdown: 
     wrap: 72

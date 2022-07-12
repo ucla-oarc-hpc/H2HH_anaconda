@@ -13,7 +13,7 @@ Anaconda (https://www.anaconda.com/) is a distribution of R and Python that can 
 View this workshop at
 
 - HTML version 
-		- [https://github.com/ucla-oarc-hpc/H2HH_anaconda](https://github.com/ucla-oarc-hpc/H2HH_anaconda) 
+		- [https://ucla-oarc-hpc.github.io/H2HH_anaconda](https://ucla-oarc-hpc.github.io/H2HH_anaconda) 
 		- docs directory
 
 - PDF version 
