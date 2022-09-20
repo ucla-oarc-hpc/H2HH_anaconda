@@ -43,7 +43,7 @@ The H<sup>2</sup>HH are designed to be short interactive talks that focus on a c
 :::
 
 Any suggestions for upcoming workshops, email me at
-**cpeterson@oarc.ucla.edu**
+[cpeterson\@oarc.ucla.edu](mailto:cpeterson@oarc.ucla.edu){.email}
 
 :::
 :::
@@ -77,7 +77,7 @@ This presentation was build with [Quarto](https://quarto.org/) and RStudio.
 ## What is Anaconda
 
 ::: columns
-::: {.column  width="60%" style="font-size: 0.75em"}
+::: {.column  width="60%" style="font-size: 0.80em"}
 
 - Anaconda is a very popular Python and R distribution.
 
@@ -244,10 +244,11 @@ You do **NOT** need to load the python module if you installed python via anacon
 :::
 
 ## Tips for running on HPC
+::: { style="font-size: 0.90em" }
 
 You maybe familiar with using Anaconda on your local machine. 
 
-Running on HPC may be different.
+- Running on HPC may be different.
 
 ::: {.fragment}
 :::{.callout-warning}
@@ -257,11 +258,14 @@ Do not use conda's default `base` env
 ::: {.fragment}
 When conda is install, it creates an conda env named `base` that you may see when running `conda env list`
 
-This conda env loacted in the central anaconda installation path can **CANNOT** be modified by users.
+- Located in the central anaconda installation path can **CANNOT** be modified by users
 
+:::
 :::
 
 ## Tips for running on HPC
+
+::: { style="font-size: 0.80em" }
 
 :::{.callout-warning}
 Do not run `conda init` on H2. 
@@ -269,11 +273,17 @@ Do not run `conda init` on H2.
 
 You may see messages or online tips about running the `conda init` command.
 
-This command initializes conda but is **NOT NEEDED** to run on Hoffman2
+</br> 
+
+This initializes conda but is **NOT NEEDED** to run on Hoffman2
 
 While this does setup conda, it will change ~/.bashrc and may cause conflicts using different versions/envs.
 
+</br> 
+
 Loading the anaconda module will already setup conda.
+
+:::
 
 ## Installing packages 
 
@@ -325,7 +335,13 @@ conda create -p $SCRATCH/mypython python=3.9
 conda activate $SCRATCH/mypython
 ```
 
-- Some detailed information on using Anaconda on Hoffman2 can be found on our website [https://www.hoffman2.idre.ucla.edu/Using-H2/Software/Software.html#anaconda](https://www.hoffman2.idre.ucla.edu/Using-H2/Software/Software.html#anaconda )
+- Some detailed information on using Anaconda on Hoffman2 can be found on our website 
+
+::: { style="font-size: 0.70em" }
+
+- [https://www.hoffman2.idre.ucla.edu/Using-H2/Software/Software.html#anaconda](https://www.hoffman2.idre.ucla.edu/Using-H2/Software/Software.html#anaconda )
+
+:::
 
 ## Job examples
 
@@ -404,25 +420,41 @@ This file can be shared with others to reproduce any conda env.
 
 ## Installing Anaconda 
 
-While Hoffman2 already has Anaconda install, you may need to install yourself if you are using other HPC resources. 
+::: { style="font-size: 0.75em" }
+
+While Hoffman2 already has Anaconda install, you may need to install Anaconda on a separate machine or another HPC resource.
 
 Visit [https://repo.anaconda.com/archive/](https://repo.anaconda.com/archive/) for all the versions of Anaconda that are available.
 
+:::{.fragment}
+
+In this example, anaconda is install at `$HOME/apps/anaconda/2021.11`
 
 ```{.bash }
 #Download anaconda script for Linux
 wget https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh
 #Run Anaconda installer
-bash Anaconda3-2021.11-Linux-x86_64.sh -p /home/charlie/apps/anaconda/2021.11 -b
+bash Anaconda3-2021.11-Linux-x86_64.sh -p $HOME/apps/anaconda/2021.11 -b
 ```
 
-In this example, anaconda is install at `/home/charlie/apps/anaconda/2021.11`
+:::
+
+:::{.fragment}
+
+</br>
+
+Now create and activate a conda env with this new anaconda build
+
 
 ```{.bash }
-source /home/charlie/apps/anaconda/2021.11/etc/profile.d/conda.sh
+# Setup Anaconda 
+source $HOME/apps/anaconda/2021.11/etc/profile.d/conda.sh
+# Create new conda env
 conda create -n myconda python=3.9
 conda activate myconda
 ```
+:::
+:::
 
 ## Installing Anaconda 
 
@@ -446,15 +478,17 @@ It is a Minimal installer for conda that is smaller than Anaconda.
 
 # Thank you!
 
+::: { style="font-size: 0.70em" }
+
 Questions? Comments?
 
 Charles Peterson
-[cpeterson\@oarc.ucla.edu](mailto:cpeterson@oarc.ucla.edu){.email}
 
-[https://charlespeterson3.com](https://charlespeterson3.com)
+- [cpeterson\@oarc.ucla.edu](mailto:cpeterson@oarc.ucla.edu){.email}
 
-- Look at for more Hoffman2 workshps at [https://idre.ucla.edu/calendar ](https://idre.ucla.edu/calendar )
+- Look at for more Hoffman2 workshops at [https://idre.ucla.edu/calendar ](https://idre.ucla.edu/calendar)
 
   - Search for `HPC`
 
 ![](padfoot.jpeg){width="800" height="450"}
+:::
