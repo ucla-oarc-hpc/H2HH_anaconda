@@ -1,7 +1,7 @@
 ---
 title: "Hoffman2 Happy Hour: Anaconda for HPC"
 author: "Charles Peterson"
-data: "June 29, 2022"
+data: "Sep 21, 2022"
 format: 
   revealjs: 
     transition: slide
@@ -16,41 +16,53 @@ editor_options:
 ## Overview
 
 ![](H2HH.png){.absolute top="0" right="0"}
+
+
 Welcome to Hoffman2 Happy Hour!
 
 The H<sup>2</sup>HH are designed to be short interactive talks that focus on a certain aspect of HPC.
 
 ::: columns
-::: {.column .fragment width="60%"}
+::: {.column .fragment width="60%" style="font-size: 0.75em"}
 
+</br>
 
 - In this H<sup>2</sup>HH we will go over using Anaconda on Hoffman2   
+
+</br>
 
 - This information can be applied to other HPC resources
 
 
 :::
 
-::: {.column .fragment width="40%"}
+::: {.column .fragment width="40%" style="font-size: 0.60em"}
+
+:::{style="text-align: center"}
 <img src="fullpic.png"/ width="30%">
+:::
 
 Any suggestions for upcoming workshops, email me at
-cpeterson\@oarc.ucla.edu
+**cpeterson@oarc.ucla.edu**
+
 :::
 :::
 
 ## Files for this Presentation
 
-This presentation can be found on our UCLA OARC's github repo under **H2HH_anaconda_06282022**
-folder
+::: {style="font-size: 0.75em"}
 
-<https://github.com/ucla-oarc-hpc/hpc_workshops>
+This presentation can be found on our UCLA OARC's github repo.
 
-The `slides` folder has this slides.
+- <https://github.com/ucla-oarc-hpc/H2HH_anaconda>
+
+View slides:
 
 - PDF format: `H2HH_anaconda.pdf`
-- html format: `html` directory 
-  - You can open the `H2HH_anaconda.html` file in your web browser 
+
+- html format: 
+  - The html sildes can be viewed at:
+  - <https://ucla-oarc-hpc.github.io/H2HH_anaconda>
 
 :::{.callout-note}
 
@@ -60,19 +72,27 @@ This presentation was build with [Quarto](https://quarto.org/) and RStudio.
 
 :::
 
+:::
+
 ## What is Anaconda
 
 ::: columns
-::: {.column  width="60%"}
+::: {.column  width="60%" style="font-size: 0.75em"}
 
 - Anaconda is a very popular Python and R distribution.
 
+</br>
+
 - Great option for simplifying package management and pipelines.
+
+</br>
 
 - Easily install popular Python and R packages.
 
 ::: 
-::: {.column width="40%"}
+::: {.column width="40%" style="text-align: center"}
+
+</br>
 
 ![](Anaconda_Logo.png)
 
@@ -81,16 +101,23 @@ This presentation was build with [Quarto](https://quarto.org/) and RStudio.
 
 ## Why use Anaconda
 
+::: {.incremental style="font-size: 0.95em"}
+
 - Easy install many python and R packages with simple `conda` commands
 
 - Create isolated python/R environments for different projects
+  - Different python/R setups and switch between them
 
 - Checks and solve for possible version conflicts when installing packages
 
 - Share conda env on different systems. 
   - Version control!
 
+:::
+
 ## Starting Anaconda
+
+::: {style="font-size: 0.75em" }
 
 On Hoffman2, Anaconda is installed and can be used by loading modules
 
@@ -108,26 +135,83 @@ module load anaconda3/2020.11
 
 - Loading the anaconda module will setup anaconda in your environment and ready to be used!
 
-:::{.callout-important}
+::: {.fragment}
+::: { .callout-important}
 
 By using anaconda, you do **NOT** need to load any other python/R modules. The python/R builds will be available via anaconda.
 
-Using other python build might cause conflicts with your anaconda python. (or R)
+Using other python build might cause conflicts with your anaconda python (or R)
+
+:::
+:::
+:::
+
+## Anaconda environment
+
+::: {.incremental style="font-size: 0.75em" }
+
+- Anaconda environments (conda env) is a virtual environment
+  - install and update packages that you can control
+  
+- These conda env's will reside in your personal workspace
+  - By default `$HOME/.conda`
+
+- Conda is also a package manager
+  - Many packages/software can be install via Conda's repository 
+  - <https://anaconda.org/anaconda/repo>
+
+- Can also install python packages within your conda env outside of Conda's repo
+  - PyPI's `pip` for python
+  - R's CRAN software repository
 
 :::
 
-## Common conda commands
+## Creating conda env
+
+::: { style="font-size: 0.85em" }
 
 Creating a new conda environment
 
 ```{.bash }
-conda create
-conda create -n myconda 
-conda create -n myconda python=3.9
-conda create --clone myconda -n myclone
+conda create [options]
+conda create -n myconda
 ```
 
-See list of all your environments that you can load
+- The `-n` option will name your new conda env
+
+::: {.fragment}
+
+You can install packages and software while creating the env
+
+```{.bash }
+conda create -n myconda python
+```
+
+:::
+::: {.fragment}
+
+Install multiple conda packages with `conda create` command
+
+```{.bash}
+conda create -n myconda python=3.9 pandas scipy r-base
+```
+
+This will install 
+
+::: { style="font-size: 0.65em" }
+- python version 3.9
+- scipy 
+- R
+
+:::
+:::
+:::
+
+## Conda envs
+
+::: { style="font-size: 0.85em" }
+
+See list of all your environments that you have created
 
 ```{.bash }
 conda env list
@@ -139,49 +223,65 @@ Start (activate) your conda environment
 conda activate myconda
 ```
 
-Install packages to your activated conda environment
+Activating the conda env gives access to the software within the env
+
+This version of `python` and `R` is installed locally in your conda env and is different from the builds of python on Hoffman2. 
+
+You can see location of python in your env and check the version.
 
 ```{.bash }
-conda install python=>3.9
+which python
+python -V
 ```
 
+::: { style="font-size: 0.75em" }
+::: { .callout-important}
+
+You do **NOT** need to load the python module if you installed python via anaconda.
+
+:::
+:::
+:::
+
+## Tips for running on HPC
+
+You maybe familiar with using Anaconda on your local machine. 
+
+Running on HPC may be different.
+
+::: {.fragment}
 :::{.callout-warning}
+Do not use conda's default `base` env
+:::
+:::
+::: {.fragment}
+When conda is install, it creates an conda env named `base` that you may see when running `conda env list`
 
-Don't run `conda init` on H2. While this does setup conda, it will change ~/.bashrc and may cause conflicts using different versions/envs.
-
-Loading the anaconda module will already setup conda.
+This conda env loacted in the central anaconda installation path can **CANNOT** be modified by users.
 
 :::
 
-## Creating new conda env
+## Tips for running on HPC
 
-On Hoffman2, after loading the anaconda module, you can create new conda env
+:::{.callout-warning}
+Do not run `conda init` on H2. 
+:::
 
-```{.bash }
-conda create -n myconda
-```
+You may see messages or online tips about running the `conda init` command.
 
-Then you can **activate** this new conda env by running
+This command initializes conda but is **NOT NEEDED** to run on Hoffman2
 
-```{.bash }
-conda activate myconda
-```
+While this does setup conda, it will change ~/.bashrc and may cause conflicts using different versions/envs.
 
-Install conda packages on `conda create` command
-
-```{.bash}
-conda create -n myconda python=3.9 pandas scipy tensorflow -c conda-forge
-```
-
-In this example, it will create a conda env, named `myconda` and will install python (v3.9), scipy and tensorflow all inside the conda env.
-
-This version of `python` is installed locally in your conda env and is different from the builds of python on Hoffman2. 
-
-- So you do **NOT** need to load the python module if you installed python via anaconda.
+Loading the anaconda module will already setup conda.
 
 ## Installing packages 
 
-Install conda with `conda install`
+::: { style="font-size: 0.90em" }
+
+Once your conda env is activate, you can install more packages with
+
+- `conda install`
 
 ```{.bash}
 conda create -n myconda
@@ -189,12 +289,16 @@ conda activate myconda
 conda install python=3.9 pandas scipy tensorflow -c conda-forge
 ```
 
-
-:::{.callout-note}
+::: {.fragment}
+::: {.callout-note}
 
 The `-c` option in conda is for the "conda channel". The conda channels are different locations where packages are stored. Examples are 'conda-forge', 'bioconda', 'defaults', etc. Conda will search though the available channels for the request packages to install.
 
 :::
+:::
+:::
+
+## Installing packages 
 
 You can use `pip` when you are in a conda env
 
@@ -209,31 +313,33 @@ When using pip/pip3 in a conda env, you do **NOT** need to have `--user`. Using 
 
 :::
 
-## Tips for running on HPC
 
-You maybe familiar with using Anaconda on your local machine. Running on HPC may be different.
+## Tips
 
-- Don't use `base` env. This is the deafult conda env. You mostly likely cannot modify it. Just create your own conda env.
+By default, when you install a conda env, it will install it at `~/.conda`
 
-- Don't modify ~/.bashrc. 
-  - Have have setup module and activate commands in job scripts instead since you may want different versions and conda env for different projects
-    - Users tend to forget what they add to ~/.bashrc and conflicts may happen. 
-
-
-## Other Tips
-
-By default, when you install a conda env, it will install it at ~/.conda
-
-You can change this location, esp if you are low in space at $HOME
+You can change this location, esp if you are low in space at `$HOME`
 
 ```{.bash }
 conda create -p $SCRATCH/mypython python=3.9
-conda activate $SCRATCH/myptyhon
+conda activate $SCRATCH/mypython
 ```
 
 - Some detailed information on using Anaconda on Hoffman2 can be found on our website [https://www.hoffman2.idre.ucla.edu/Using-H2/Software/Software.html#anaconda](https://www.hoffman2.idre.ucla.edu/Using-H2/Software/Software.html#anaconda )
 
 ## Job examples
+
+Once you create you env, you don't need to create it again.
+
+```{.bash }
+qrsh -l h_data=5G
+module load anaconda3/2020.11
+conda activate myconda
+python test.py
+```
+
+::: {.fragment}
+Job script example
 
 ```{.bash }
 #!/bin/bash
@@ -249,8 +355,10 @@ module load anaconda3/2020.11
 conda activate myconda
 
 #Running python code
-python3 test.py > test.out
+python test.py > test.out
 ```
+
+:::
 
 ## Searching for anaconda packages
 
@@ -264,13 +372,7 @@ Here, you can search for software and other packages. It will also explain what 
 
 ## Using yml files
 
-You can create a conda file from a `.yml` file
-
-```{.bash }
-conda env create -f environment.yml
-```
-
-The `environment.yml` file has the packages that are needed to create the conda env. 
+You can create a conda file from a `environment.yml` file
 
 ```{.bash }
 name: myconda
@@ -280,7 +382,15 @@ dependencies:
   - python=3.9
 ```
 
-An `.yml` file can be created from an existing conda env
+You can create a conda env with all these packages by running:
+
+```{.bash }
+conda env create -f environment.yml
+```
+
+## Using yml files
+
+An `.yml` file can be created from an existing conda env so you can create the same conda env.
 
 ```{.bash }
 conda activate myconda
@@ -289,7 +399,8 @@ conda env export > environment.yml
 
 This file can be shared with others to reproduce any conda env. 
 
-- Creating a environment.yml is very useful if you want to make sure you keep the same versions of packages when running anaconda on different HPC resources.
+ - Keep the same versions of packages when running anaconda on different HPC resources
+
 
 ## Installing Anaconda 
 
