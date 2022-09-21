@@ -6,7 +6,7 @@ Part of the Hoffman2 Happy Hour series
 
 Presented by Charles Peterson
 
-Sept 19, 2022
+Sep 20, 2022
 
 Anaconda (https://www.anaconda.com/) is a distribution of R and Python that can be used to easily install many popular data science, biostats, and other packages. This Hoffman2 Happy Hour will go discus using Anaconda on Hoffman2. This can be applied to using Anaconda on various other HPC resources. We will go over creating conda environments and running applications on Hoffman2. 
 
