@@ -66,7 +66,7 @@ View slides:
 
 :::{.callout-note}
 
-This presentation was build with [Quarto](https://quarto.org/) and RStudio.
+This presentation was built with [Quarto](https://quarto.org/) and RStudio.
 
 - Quarto file: `H2HH_anaconda.qmd`
 
@@ -79,7 +79,7 @@ This presentation was build with [Quarto](https://quarto.org/) and RStudio.
 ::: columns
 ::: {.column  width="60%" style="font-size: 0.80em"}
 
-- Anaconda is a very popular Python and R distribution.
+- Anaconda is a very popular Python and R distribution tool.
 
 </br>
 
@@ -157,7 +157,7 @@ Using other python build might cause conflicts with your anaconda python (or R)
   - By default `$HOME/.conda`
 
 - Conda is also a package manager
-  - Many packages/software can be install via Conda's repository 
+  - Many packages/software can be installed via Conda's repository 
   - <https://anaconda.org/anaconda/repo>
 
 - Can also install python packages within your conda env outside of Conda's repo
@@ -246,7 +246,7 @@ You do **NOT** need to load the python module if you installed python via anacon
 ## Tips for running on HPC
 ::: { style="font-size: 0.90em" }
 
-You maybe familiar with using Anaconda on your local machine. 
+You may be familiar with using Anaconda on your local machine. 
 
 - Running on HPC may be different.
 
@@ -256,7 +256,7 @@ Do not use conda's default `base` env
 :::
 :::
 ::: {.fragment}
-When conda is install, it creates an conda env named `base` that you may see when running `conda env list`
+When conda is installed, it creates a conda env named `base` that you may see when running `conda env list`
 
 - Located in the central anaconda installation path **CANNOT** be modified by users
 
@@ -289,7 +289,7 @@ Loading the anaconda module will already setup conda.
 
 ::: { style="font-size: 0.90em" }
 
-Once your conda env is activate, you can install more packages with
+Once your conda env is activated, you can install more packages with
 
 - `conda install`
 
@@ -302,7 +302,7 @@ conda install python=3.9 pandas scipy tensorflow -c conda-forge
 ::: {.fragment}
 ::: {.callout-note}
 
-The `-c` option in conda is for the "conda channel". The conda channels are different locations where packages are stored. Examples are 'conda-forge', 'bioconda', 'defaults', etc. Conda will search though the available channels for the request packages to install.
+The `-c` option in conda is for the "conda channel". The conda channels are different locations where packages are stored. Examples are 'conda-forge', 'bioconda', 'defaults', etc. Conda will search through the available channels for the request packages to install.
 
 :::
 :::
@@ -345,17 +345,57 @@ conda activate $SCRATCH/mypython
 
 ## Job examples
 
-Once you create you env, you don't need to create it again.
+Example: Using Pytorch to fit a polynomial function from a sin function 
+
+File: `pytorch_ex.py`
+
+::: { style="font-size: 0.80em" }
+
+:::{.fragment}
+
+- Start an interactive session
 
 ```{.bash }
 qrsh -l h_data=5G
-module load anaconda3/2020.11
-conda activate myconda
-python test.py
 ```
 
-::: {.fragment}
-Job script example
+:::
+:::{.fragment}
+
+- Create conda env
+
+```{.bash}
+module load anaconda3/2020.11
+conda create -n mypytorch
+```
+
+:::
+:::{.fragment}
+
+- Activate env and install pytorch
+
+```{.bash}
+conda activate mypytorch
+conda install python=3.8 pytorch torchvision torchaudio cpuonly -c pytorch
+```
+
+:::
+:::{.fragment}
+
+- Run python 
+
+```{.bash}
+python pytorch_ex.py
+```
+
+:::
+:::
+
+## Job script example
+
+::: { style="font-size: 0.80em" }
+
+- pytorch_ex.job
 
 ```{.bash }
 #!/bin/bash
@@ -367,13 +407,25 @@ Job script example
 # load the anaconda module
 . /u/local/Modules/default/init/modules.sh
 module load anaconda3/2020.11
-# Activate the 'myconda' conda env
-conda activate myconda
+
+# Activate the 'mypytorch' conda env
+conda activate mypytorch
 
 #Running python code
-python test.py > test.out
+python pytorch_ex.py > pytorch_ex.out
 ```
 
+The `mypytorch` conda env has already been created
+
+:::{.fragment}
+
+- Run job
+
+```{.bash}
+qsub pytorch_ex.job
+```
+
+:::
 :::
 
 ## Searching for anaconda packages
@@ -381,9 +433,9 @@ python test.py > test.out
 
 Find software that is available on Anaconda's package repo
 
-- [https://anaconda.org/anaconda/repo](https://anaconda.org/anaconda/repo){preview-link="true"}
+- [https://anaconda.org/anaconda/repo](https://anaconda.org/anaconda/repo)
 
-Here, you can search for software and other packages. It will also explain what conda commands you need to install them inside your conda env.
+Here, you can search for software and other packages. It will also explain what conda commands you will need in order to install them to your conda env.
 
 
 ## Using yml files
@@ -434,7 +486,7 @@ We have a collection of `.yml` files that we made to use on Hoffman2
 
 ::: { style="font-size: 0.75em" }
 
-While Hoffman2 already has Anaconda install, you may need to install Anaconda on a separate machine or another HPC resource.
+While Hoffman2 already has Anaconda installed, you may need to install Anaconda on a separate machine or another HPC resource.
 
 Visit [https://repo.anaconda.com/archive/](https://repo.anaconda.com/archive/) for all the versions of Anaconda that are available.
 
