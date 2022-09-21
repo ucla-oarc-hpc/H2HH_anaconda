@@ -258,7 +258,7 @@ Do not use conda's default `base` env
 ::: {.fragment}
 When conda is install, it creates an conda env named `base` that you may see when running `conda env list`
 
-- Located in the central anaconda installation path can **CANNOT** be modified by users
+- Located in the central anaconda installation path **CANNOT** be modified by users
 
 :::
 :::
@@ -406,6 +406,8 @@ conda env create -f environment.yml
 
 ## Using yml files
 
+::: { style="font-size: 0.85em" }
+
 An `.yml` file can be created from an existing conda env so you can create the same conda env.
 
 ```{.bash }
@@ -417,6 +419,16 @@ This file can be shared with others to reproduce any conda env.
 
  - Keep the same versions of packages when running anaconda on different HPC resources
 
+::: {.fragment}
+::: {.callout-tip}
+
+We have a collection of `.yml` files that we made to use on Hoffman2
+
+[https://github.com/ucla-oarc-hpc/hpc_conda](https://github.com/ucla-oarc-hpc/hpc_conda)
+
+:::
+:::
+:::
 
 ## Installing Anaconda 
 
